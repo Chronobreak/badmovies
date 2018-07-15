@@ -9,6 +9,7 @@ class Search extends React.Component {
   }
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
+    axios.get('/genres')
   }
 
   render() {
@@ -18,7 +19,10 @@ class Search extends React.Component {
         <br/><br/>
 
         {/* Make the select options dynamic from genres !!! */}
-        {/* How can you tell which option has been selected from here? */}
+        {/* How can you tell which option has been selected from here? 
+          Map out genres
+      
+        */}
 
         <select>
           <option value="theway">The Way</option>

@@ -18,5 +18,6 @@ const deleteFavorites = function(callback) {
 module.exports = {
   getAllFavorites,
   saveFavorite,
-  deleteFavorite
+  deleteFavorites,
+  connection
 };

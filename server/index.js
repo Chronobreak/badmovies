@@ -1,9 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var request = require('request')
+var request = require('request');
 var app = express();
-
-var apiHelpers = require('./apiHelpers.js');
+var axios = require('axios');
+var apiHelpers = require('./apiHelpers');
 
 app.use(bodyParser.json());
 
@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/search', function(req, res) {
+    console.log('Console logging req.body from servers/index, app.GET/search: ', req.body)
     // get the search genre     
 
     // https://www.themoviedb.org/account/signup
@@ -24,8 +25,12 @@ app.get('/search', function(req, res) {
 
 app.get('/genres', function(req, res) {
     // make an axios request to get the list of official genres
+    axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=dc4930730bcbbe062437aa6b52dee622')
+    .then((result) => console.log(result))
     
     // use this endpoint, which will also require your API key: https://api.themoviedb.org/3/genre/movie/list
+    // https://api.themoviedb.org/3/genre/movie/list?api_key=dc4930730bcbbe062437aa6b52dee622
+    // ^ Gets all genres!
 
     // send back
 });
@@ -39,5 +44,5 @@ app.post('/delete', function(req, res) {
 });
 
 app.listen(3000, function() {
-  console.log('listening on port 3000!');
+    console.log('listening on port 3000!');
 });

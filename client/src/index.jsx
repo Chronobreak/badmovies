@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 // import AnyComponent from './components/filename.jsx'
 import Search from './components/Search.jsx'
 import Movies from './components/Movies.jsx'
@@ -15,6 +14,7 @@ class App extends React.Component {
     };
     
     // you might have to do something important here!
+    // bind functions
   }
 
   getMovies() {
@@ -22,11 +22,14 @@ class App extends React.Component {
   }
 
   saveMovie() {
-    // same as above but do something diff
+
+    // onClick, save the movie to your database
   }
 
   deleteMovie() {
     // same as above but do something diff
+
+    //onClick, save the movie to your database
   }
 
   swapFavorites() {

@@ -1,5 +1,4 @@
 
-const request = require('request');
 const axios = require('axios');
 const { API_KEY } = require('../server/config.js');
 
@@ -10,3 +9,10 @@ const { API_KEY } = require('../server/config.js');
 // https://developers.themoviedb.org/3/discover/movie-discover
 
 // Don't forget to export your functions and require them within your server file
+
+apiHelpers = {
+  
+}
+
+
+module.exports = apiHelpers;
