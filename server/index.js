@@ -33,10 +33,6 @@ app.get('/favorites', function(req, res) {
     db.connection.query(sqlQuery, (err, data) => {
         if (err) console.log("Console logging error from app.get/FAVORITES: ", err)
         else {
-            console.log('Console logging result when fetching favorites: ', data)
-            // let returnObj = data.map(() => {
-
-            // })
             res.send(data)
         }
     })
@@ -44,7 +40,7 @@ app.get('/favorites', function(req, res) {
 
 app.post('/save', function(req, res) {
     console.log('Console logging to see if app.post/SAVE is firing')
-    let sqlQuery = "INSERT INTO favorites (id, poster_path, original_title, release_date, vote_average) values (?, ?, ?, ?, ?)";
+    let sqlQuery = "INSERT IGNORE INTO favorites (id, poster_path, original_title, release_date, vote_average) values (?, ?, ?, ?, ?)";
     let params = [req.body.id, req.body.poster, req.body.title, req.body.releasedate, req.body.rating]
     db.connection.query(sqlQuery, params, (err, data) => {
         if (err) console.log("Console logging error from app.post/SAVE: ", err)
@@ -58,7 +54,14 @@ app.post('/save', function(req, res) {
 });
 
 app.post('/delete', function(req, res) {
-    let sqlQuery = "";
+    let sqlQuery = "DELETE FROM favorites WHERE id = ?";
+    db.connection.query(sqlQuery, req.body.id, (err, data) => {
+        if (err) console.log("ERROR DELETING FROM DB")
+        else {
+            console.log("SUCCESSFULLY DELETED FAVORITE")
+            res.sendStatus(201);
+        }
+    })
 
 
 });

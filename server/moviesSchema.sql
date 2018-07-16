@@ -9,5 +9,6 @@ CREATE TABLE favorites (
   poster_path varchar(255),
   original_title varchar(255) NOT NULL,
   release_date varchar(11) NOT NULL,
-  vote_average FLOAT NOT NULL
+  vote_average FLOAT NOT NULL,
+  PRIMARY KEY (`id`)
 )

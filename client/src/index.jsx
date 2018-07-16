@@ -52,11 +52,6 @@ class App extends React.Component {
         favorites: result.data
       })
     })
-    // .then((result) => {
-    //   this.setState({
-    //     favorites: result
-    //   })
-    // })
   }
 
   saveMovie(e) {
@@ -72,8 +67,12 @@ class App extends React.Component {
 
   deleteMovie(e) {
     // onClick, will delete the movie from the database
-
-    console.log("Testing that DELETE movie is firing when FAVORITES are being displayed", e.original_title)
+    axios.post('/delete', {
+      id: e.id
+    })
+    .then(()=> {
+      this.getFavorites();
+    })
   }
 
   swapFavorites() {
