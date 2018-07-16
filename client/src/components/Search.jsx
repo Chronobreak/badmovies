@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Search extends React.Component {
   constructor(props) {
@@ -10,6 +11,15 @@ class Search extends React.Component {
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
     axios.get('/genres')
+    .then((result) => {
+      this.setState({
+        genres: result.data
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.getGenres();
   }
 
   render() {
@@ -20,18 +30,24 @@ class Search extends React.Component {
 
         {/* Make the select options dynamic from genres !!! */}
         {/* How can you tell which option has been selected from here? 
-          Map out genres
+        
+          Map out genres DONE
+          Remember: IDs are stored as this.genres[i].id, names are this.genres[i].name
       
         */}
 
-        <select>
-          <option value="theway">The Way</option>
-          <option value="thisway">This Way</option>
-          <option value="thatway">That Way</option>
+        <select onChange={this.props.selectGenre}>
+          {
+            this.state.genres.map((item) => {
+              return (
+                <option value={item.id}>{item.name}</option>
+              )
+            })
+          }
         </select>
         <br/><br/>
 
-        <button>Search</button>
+        <button onClick={this.props.getMovies}>Search</button>
 
       </div>
     );
