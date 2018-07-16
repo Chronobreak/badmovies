@@ -39,7 +39,6 @@ app.get('/favorites', function(req, res) {
 })
 
 app.post('/save', function(req, res) {
-    console.log('Console logging to see if app.post/SAVE is firing')
     let sqlQuery = "INSERT IGNORE INTO favorites (id, poster_path, original_title, release_date, vote_average) values (?, ?, ?, ?, ?)";
     let params = [req.body.id, req.body.poster, req.body.title, req.body.releasedate, req.body.rating]
     db.connection.query(sqlQuery, params, (err, data) => {
@@ -49,8 +48,6 @@ app.post('/save', function(req, res) {
             res.sendStatus(201);
         }
     })
-
-
 });
 
 app.post('/delete', function(req, res) {
@@ -58,12 +55,9 @@ app.post('/delete', function(req, res) {
     db.connection.query(sqlQuery, req.body.id, (err, data) => {
         if (err) console.log("ERROR DELETING FROM DB")
         else {
-            console.log("SUCCESSFULLY DELETED FAVORITE")
             res.sendStatus(201);
         }
     })
-
-
 });
 
 app.listen(3000, function() {

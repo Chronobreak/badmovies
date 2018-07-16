@@ -12,7 +12,7 @@ class App extends React.Component {
       movies: [{deway: "movies"}],
       favorites: [{deway: "favorites"}],
       showFaves: false,
-      genre: 28
+      genre: 878
     };
     
     // you might have to do something important here!
@@ -47,7 +47,6 @@ class App extends React.Component {
     // Function will call and get results from database
     axios.get('/favorites')
     .then((result) => {
-      console.log('Console logging results from fetching favorites!!!!!!!', result.data)
       this.setState({
         favorites: result.data
       })
