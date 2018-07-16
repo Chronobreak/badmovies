@@ -14,12 +14,18 @@ class Movies extends React.Component {
 
   render() {
     return (
-      <div>
-      <ul className="movies">
 
-      {this.props.movies.map((movie) => {
-        <li className="movie_item">
-        <img src="https://lh3.googleusercontent.com/97gnjRiv2zIRnDupzfxYFoI-6zlIK3jKgb6KOCDf_tjWkY9epbITdSFIbiKhuccOqQ=w300" />
+      <ul className="movies">
+      {
+        this.props.movies.map((movie) => {
+        return (
+        <li className="movie_item" value={movie} onClick={() => {
+          if (this.props.showFaves) {
+            this.props.deleteMovie(movie)
+          } else {
+            this.props.saveMovie(movie)
+          }}}>
+        <img src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}/>
         <div className="movie_description">
           <h2>{movie.original_title}</h2>
           <section className="movie_details">
@@ -33,12 +39,11 @@ class Movies extends React.Component {
             </div>
           </section>
         </div>
-        </li> 
-      })
-    }
-
+          </li>
+        )
+        })
+      }
     </ul>
-    </div>
     )
   }
 }

@@ -25,16 +25,11 @@ class Search extends React.Component {
   render() {
     return (
       <div className="search">
-        <button onClick={() => {this.props.swapFavorites()}}>{this.props.showFaves ? "Show Results" : "Show Favorites"}</button>
+        <button onClick={() => {
+          this.props.swapFavorites()
+          this.props.getFavorites()
+          }}>{this.props.showFaves ? "Show Results" : "Show Favorites"}</button>
         <br/><br/>
-
-        {/* Make the select options dynamic from genres !!! */}
-        {/* How can you tell which option has been selected from here? 
-        
-          Map out genres DONE
-          Remember: IDs are stored as this.genres[i].id, names are this.genres[i].name
-      
-        */}
 
         <select onChange={this.props.selectGenre}>
           {
@@ -55,3 +50,11 @@ class Search extends React.Component {
 }
 
 export default Search;
+
+        {/* Make the select options dynamic from genres !!! */}
+        {/* How can you tell which option has been selected from here? 
+        
+          Map out genres DONE
+          Remember: IDs are stored as this.genres[i].id, names are this.genres[i].name
+      
+        */}

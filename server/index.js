@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var axios = require('axios');
 var apiHelpers = require('./apiHelpers');
+var db = require('../server/database')
 
 app.use(bodyParser.json());
 
@@ -10,7 +11,6 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/search', function(req, res) {
-    console.log('Console logging req.body from servers/index, app.GET/search: ', req.query.term);
     axios.get(`https://api.themoviedb.org/3/discover/movie/?with_genres=${req.query.term}&sort_by=vote_average.asc&api_key=dc4930730bcbbe062437aa6b52dee622`)
         .then((result) => {
             res.send(result.data)})
@@ -29,21 +29,37 @@ app.get('/genres', function(req, res) {
 });
 
 app.get('/favorites', function(req, res) {
-    let sqlQuery = "";
-    // db.query(sqlQuery, params, (err, data) => {
-    //     if (err) console.log(err)
-    //     else {
-    //         console.log(data)
-    //         res.send(data)
-    //     }
-    // })
+    let sqlQuery = "SELECT * FROM favorites";
+    db.connection.query(sqlQuery, (err, data) => {
+        if (err) console.log("Console logging error from app.get/FAVORITES: ", err)
+        else {
+            console.log('Console logging result when fetching favorites: ', data)
+            // let returnObj = data.map(() => {
+
+            // })
+            res.send(data)
+        }
+    })
 })
 
 app.post('/save', function(req, res) {
+    console.log('Console logging to see if app.post/SAVE is firing')
+    let sqlQuery = "INSERT INTO favorites (id, poster_path, original_title, release_date, vote_average) values (?, ?, ?, ?, ?)";
+    let params = [req.body.id, req.body.poster, req.body.title, req.body.releasedate, req.body.rating]
+    db.connection.query(sqlQuery, params, (err, data) => {
+        if (err) console.log("Console logging error from app.post/SAVE: ", err)
+        else {
+            console.log(data);
+            res.sendStatus(201);
+        }
+    })
+
 
 });
 
 app.post('/delete', function(req, res) {
+    let sqlQuery = "";
+
 
 });
 

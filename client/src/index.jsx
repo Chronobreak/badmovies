@@ -36,7 +36,6 @@ class App extends React.Component {
       params: {term: this.state.genre} // Remember this part - send as params
     })
       .then((result) => {
-        console.log('Console logging result.data.result from getMovies axios call: ', result.data.results)
         this.setState({
           movies: result.data.results
         })
@@ -48,20 +47,33 @@ class App extends React.Component {
     // Function will call and get results from database
     axios.get('/favorites')
     .then((result) => {
-      console.log("Console logging return from app.get/FAVORITES", result)
+      console.log('Console logging results from fetching favorites!!!!!!!', result.data)
       this.setState({
-        favorites: result
+        favorites: result.data
       })
+    })
+    // .then((result) => {
+    //   this.setState({
+    //     favorites: result
+    //   })
+    // })
+  }
+
+  saveMovie(e) {
+    // onClick, save the movie to your database
+    axios.post('/save', {
+      id: e.id,
+      poster: e.poster_path,
+      title: e.original_title,
+      releasedate: e.release_date,
+      rating: e.vote_average
     })
   }
 
-  saveMovie() {
-
-    // onClick, save the movie to your database
-  }
-
-  deleteMovie() {
+  deleteMovie(e) {
     // onClick, will delete the movie from the database
+
+    console.log("Testing that DELETE movie is firing when FAVORITES are being displayed", e.original_title)
   }
 
   swapFavorites() {
@@ -83,7 +95,7 @@ class App extends React.Component {
         
         <div className="main">
           <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves}
-            getMovies={this.getMovies} selectGenre={this.selectGenre}/>
+            getMovies={this.getMovies} selectGenre={this.selectGenre} getFavorites={this.getFavorites}/>
           <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves}
             saveMovie={this.saveMovie} deleteMovie={this.deleteMovie}/>
         </div>
